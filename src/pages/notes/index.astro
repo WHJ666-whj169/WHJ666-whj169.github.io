@@ -1,0 +1,16 @@
+---
+import Base from '../../layouts/Base.astro';
+import {getCollection} from 'astro:content';
+const notes=(await getCollection('notes',({data})=>!data.draft)).sort((a,b)=>b.data.date.valueOf()-a.data.date.valueOf());
+const tags=[...new Set(notes.flatMap(note=>note.data.tags))];
+---
+<Base title="成长记录"><main class="page-shell" id="main"><div class="page-intro"><span class="eyebrow">NOTES & PROCESS</span><h1>每一步，都算数<span>.</span></h1><p>记录作品背后的过程，分享学习、创作与实践中的小收获。</p></div><div class="search-area"><label for="note-search">搜索记录</label><input id="note-search" type="search" placeholder="搜索标题、内容摘要或标签…" autocomplete="off"/><div class="tag-filters" role="group" aria-label="按标签筛选"><button type="button" data-tag="" aria-pressed="true">全部</button>{tags.map(tag=><button type="button" data-tag={tag} aria-pressed="false">{tag}</button>)}</div><p id="search-count" aria-live="polite">共 {notes.length} 篇记录</p></div><div class="note-cards listing">{notes.map(note=><article class="searchable-note" data-search={note.data.title+' '+note.data.description+' '+note.data.tags.join(' ')} data-tags={JSON.stringify(note.data.tags)}><a href={'/notes/'+note.id+'/'} class="note-card"><div class="note-meta"><span>{note.data.category}</span><time datetime={note.data.date.toISOString()}>{note.data.date.toISOString().slice(0,10)}</time></div><h2>{note.data.title} ↗</h2><p>{note.data.description}</p><div class="note-tags">{note.data.tags.map(tag=><span>#{tag}</span>)}</div></a></article>)}</div><p id="empty-search" class="empty-state" hidden>没有找到相关记录，试试其他关键词或“全部”标签。</p></main></Base>
+<script>
+const input=document.querySelector<HTMLInputElement>('#note-search')!;
+const buttons=document.querySelectorAll<HTMLButtonElement>('[data-tag]');
+const items=document.querySelectorAll<HTMLElement>('.searchable-note');
+let activeTag='';
+function filter(){const query=input.value.trim().toLocaleLowerCase();let count=0;items.forEach(item=>{const match=(!query||item.dataset.search!.toLocaleLowerCase().includes(query))&&(!activeTag||JSON.parse(item.dataset.tags!).includes(activeTag));item.hidden=!match;if(match)count++;});document.querySelector('#search-count')!.textContent='共 '+count+' 篇记录';document.querySelector<HTMLElement>('#empty-search')!.hidden=count>0;}
+input.addEventListener('input',filter);buttons.forEach(button=>button.addEventListener('click',()=>{activeTag=button.dataset.tag!;buttons.forEach(other=>other.setAttribute('aria-pressed',String(other===button)));filter();}));
+</script>
+

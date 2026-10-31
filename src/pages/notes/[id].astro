@@ -1,0 +1,9 @@
+---
+import Base from '../../layouts/Base.astro';
+import {getCollection,render} from 'astro:content';
+export async function getStaticPaths(){return(await getCollection('notes',({data})=>!data.draft)).map(note=>({params:{id:note.id},props:{note}}));}
+const {note}=Astro.props;
+const {Content,headings}=await render(note);
+---
+<Base title={note.data.title} description={note.data.description}><main class="article-shell" id="main"><a class="back-link" href="/notes/">← 全部记录</a><header class="article-header"><div class="note-meta"><span>{note.data.category}</span><time datetime={note.data.date.toISOString()}>{note.data.date.toISOString().slice(0,10)}</time></div><h1>{note.data.title}</h1><p>{note.data.description}</p><div class="note-tags">{note.data.tags.map(tag=><a href="/notes/">#{tag}</a>)}</div></header><div class="article-grid"><article class="prose"><Content/><div class="article-end">谢谢读到这里。<a href="/notes/">继续阅读其他记录 →</a></div></article>{headings.length>0&&<aside class="toc"><h2>本文目录</h2><nav aria-label="文章目录">{headings.filter(h=>h.depth===2).map(h=><a href={'#'+h.slug}>{h.text}</a>)}</nav></aside>}</div></main></Base>
+

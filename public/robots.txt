@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://whj666-whj169.github.io/sitemap.xml
+

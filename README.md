@@ -1,28 +1,46 @@
 # WHJ 的个人网站
 
-一个不需要安装依赖的静态个人作品集。支持手机、作品分类、详情弹窗和深浅主题。
+线上地址：https://whj666-whj169.github.io/
 
-## 预览
+## 开源基础
 
-直接用浏览器打开 `index.html` 即可。也可以使用任意静态服务器。
+直接基于 [RyanFitzgerald/devportfolio](https://github.com/RyanFitzgerald/devportfolio) 定制，采用版本 `852d650fb0a8cf0c98f874af5a56a0a9b7d7d4b7`，保留原始 Hero、About、Projects 组件并做中文与功能适配。原作者 MIT 版权及许可保留在 LICENSE.md。
+
+参考 Fuwari 的文章分类、文章目录与深浅主题，以及 Astrofy 的作品、博客、个人档案分区思路；没有复制后两者的代码、图片或个人资料。
+
+## 已有功能
+
+- 大字首页、作品列表与独立作品详情。
+- Markdown 文章、文章目录、标题/摘要/标签搜索、标签筛选、空结果提示。
+- 独立个人档案、开源致谢、RSS、站点地图、404 页面。
+- 手机导航、深浅主题与偏好记忆。
+- GitHub Actions 自动构建与发布。
+- 无远程字体、广告、统计或追踪脚本。
 
 ## 更新内容
 
-- `content.js`：修改作品标题、分类、说明、要点和真实演示链接。`placeholder` 改为 `false` 表示真实作品。
-- `index.html`：修改昵称、个人简介、联系方式，以及 GitHub 链接。
-- `styles.css`：调整配色和布局。
-- `app.js`：筛选、弹窗和主题交互。
+- 个人信息和作品：`src/config.ts`。
+- 文章：`src/content/notes/*.md`，复制已有文章的头部格式；`draft: true` 不发布。
+- 作品详情：`src/pages/projects/`。
+- 个人档案：`src/pages/profile.astro`。
+- 全局样式：`src/styles/global.css`。
 
-当前四张作品卡片均为明确标记的预留内容，封面由 CSS 绘制；没有虚构经历、证书、作品成绩或联系方式。三条记录均为写作方向建议。
+只写真实且愿意公开的信息。学校、简历、邮箱、未完成作品和私人资料不自动补写。
 
-## 适合逐步补充的内容
+## 本地使用
 
-1. 作品案例：问题、你的贡献、成品、代码或演示、复盘。
-2. 个人介绍：方向、兴趣和愿意公开的技能；不需要放学号、住址或课表。
-3. 成长记录：项目过程、学习笔记、月度复盘、工具方法。
-4. 真实成果：证书、比赛、活动经历和简历，公开前检查个人信息。
-5. 联系方式：准备好后再放公开邮箱或社交主页。
+需要 Node.js 24 和 pnpm 11.25.0。
 
-## GitHub Pages
+```sh
+pnpm install --frozen-lockfile
+pnpm dev
+pnpm build
+pnpm preview
+```
 
-适合部署到 GitHub Pages。若使用用户名同名仓库 `WHJ666-whj169.github.io`，网站根地址为 `https://whj666-whj169.github.io/`。仓库中只提交公开网站文件，不提交本地记忆、账号信息和私人资料。
+安装构建脚本仅允许 esbuild 和 sharp，配置在 pnpm-workspace.yaml。
+推送到 main 后，GitHub Actions 构建 dist 并发布。Pages 需选择 GitHub Actions 作为来源。
+
+## 旧版本
+
+从零编写的旧版已由本地 Git 标签 `backup-before-devportfolio-*` 保留。网站源码不包含本地记忆库、密钥或私人档案。

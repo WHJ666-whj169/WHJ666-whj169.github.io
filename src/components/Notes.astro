@@ -1,0 +1,6 @@
+---
+import {getCollection} from 'astro:content';
+const notes=(await getCollection('notes',({data})=>!data.draft)).sort((a,b)=>b.data.date.valueOf()-a.data.date.valueOf()).slice(0,3);
+---
+<section class="content-section" id="notes"><div class="section-heading"><span class="eyebrow">NOTES & PROCESS</span><h2>成长记录<span>.</span></h2><p>作品之外，也留下思考的轨迹。</p><a class="inline-link" href="/notes/">查看全部记录 →</a></div><div class="note-cards">{notes.map(note=><a href={'/notes/'+note.id+'/'} class="note-card"><div class="note-meta"><span>{note.data.category}</span><time datetime={note.data.date.toISOString()}>{note.data.date.toISOString().slice(0,10)}</time></div><h3>{note.data.title}<span aria-hidden="true"> ↗</span></h3><p>{note.data.description}</p><div class="note-tags">{note.data.tags.map(tag=><span>#{tag}</span>)}</div></a>)}</div></section>
+

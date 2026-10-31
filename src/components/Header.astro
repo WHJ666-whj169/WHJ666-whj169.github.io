@@ -1,0 +1,15 @@
+---
+const {home=false}=Astro.props;
+const path=Astro.url.pathname;
+---
+<header id="header" class="site-header"><nav class="site-nav" aria-label="主导航">
+<a href="/" class="wordmark" aria-label="WHJ 首页">WHJ<span>.</span></a>
+<div class="nav-links"><a href={home?"#projects":"/#projects"}>作品</a><a href="/notes/" aria-current={path.startsWith('/notes')?'page':undefined}>记录</a><a href={home?"#about":"/#about"}>关于</a><a href="/profile/" aria-current={path.startsWith('/profile')?'page':undefined}>档案</a></div>
+<button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换主题" aria-pressed="false"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z"/></svg></button>
+</nav></header>
+<script>
+const button=document.querySelector<HTMLButtonElement>('#theme-toggle');
+function update(){const dark=document.documentElement.dataset.theme==='dark';button?.setAttribute('aria-pressed',String(dark));button?.setAttribute('aria-label',dark?'切换浅色模式':'切换深色模式');}
+update();button?.addEventListener('click',()=>{const dark=document.documentElement.dataset.theme!=='dark';document.documentElement.dataset.theme=dark?'dark':'light';try{localStorage.setItem('whj-theme',dark?'dark':'light');}catch{}update();});
+</script>
+
