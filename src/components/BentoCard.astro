@@ -1,0 +1,18 @@
+---
+/*
+ * Adapted from Ladvace/astro-bento-portfolio/src/components/Card/index.astro.
+ * Copyright (c) 2024 Gianmarco Cavallo and others. MIT, see licenses/.
+ * Removed UnoCSS, astro-icon and nine-slice dependencies for this Astro site.
+ * Retains slot composition, optional linked card, title, and corner arrow.
+ */
+import Content from "./BentoContent.astro";
+interface Props {title?:string;href?:string;class?:string;eyebrow?:string;}
+const {title,href,eyebrow,class:className=""}=Astro.props;
+const external=href?.startsWith("https://");
+---
+<div class:list={["bento-card",className]}>
+  <slot name="background"/>
+  {href?<a class="bento-card-link" href={href} target={external?"_blank":undefined} rel={external?"noopener noreferrer":undefined}>
+    <span class="card-corner-arrow" aria-hidden="true">↗</span>{eyebrow&&<span class="eyebrow">{eyebrow}</span>}<Content title={title}><slot/></Content>
+  </a>:<div class="bento-card-content">{eyebrow&&<span class="eyebrow">{eyebrow}</span>}<Content title={title}><slot/></Content></div>}
+</div>

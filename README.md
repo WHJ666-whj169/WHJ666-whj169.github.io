@@ -2,7 +2,16 @@
 
 线上地址：https://whj666-whj169.github.io/
 
-## 开源基础
+## 当前首页：星空封面 + Bento 卡片
+
+- 封面适配 [sanidhyy/space-portfolio](https://github.com/sanidhyy/space-portfolio) 的双栏布局，直接复用黑洞视频和轨道 SVG，来源版本 6b5954a496028e86a7bb8a271e0385dfacc63737。
+- 卡片组件适配 [Ladvace/astro-bento-portfolio](https://github.com/Ladvace/astro-bento-portfolio) 的 Card / Content，来源版本 ab56d5c972c9d7c9096825af673621aed944f6b9；移除额外框架及数据库依赖。
+- 两个项目均为 MIT，完整原始许可在 licenses/。默认深色，可以切换浅色；星空封面保持深色。
+- 减少动态效果偏好使用静态星点及光环；封面不可见或切到后台时暂停动画。
+- 不包含访客编辑、上传或留言接口，内容仍由所有者通过 GitHub 仓库维护。
+- Hero.astro 为当前封面，BentoDashboard.astro / BentoCard.astro 为首页内容；原 About / Projects / Notes 组件作为早期版本源码保留，当前首页不再使用。
+
+## 初始开源基础
 
 直接基于 [RyanFitzgerald/devportfolio](https://github.com/RyanFitzgerald/devportfolio) 定制，采用版本 `852d650fb0a8cf0c98f874af5a56a0a9b7d7d4b7`，保留原始 Hero、About、Projects 组件并做中文与功能适配。原作者 MIT 版权及许可保留在 LICENSE.md。
 

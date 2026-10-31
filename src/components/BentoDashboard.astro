@@ -1,0 +1,23 @@
+---
+import Card from "./BentoCard.astro";
+import {siteConfig} from "../config";
+import {getCollection} from "astro:content";
+const notes=(await getCollection("notes",({data})=>!data.draft)).sort((a,b)=>b.data.date.valueOf()-a.data.date.valueOf()||a.id.localeCompare(b.id,"en")).slice(0,2);
+---
+<section class="bento-section" id="explore" aria-labelledby="explore-title">
+ <div class="bento-section-heading"><div><span class="eyebrow">A PERSONAL UNIVERSE</span><h2 id="explore-title">我的探索宇宙<span>.</span></h2></div><p>成果、过程与下一次尝试，都在这里。</p></div>
+ <div class="bento-grid">
+  <Card class="intro-card" eyebrow="01 / ABOUT ME">
+   <div id="about" class="section-anchor"></div><span class="intro-watermark" aria-hidden="true">W.</span><h3>不急着定义自己，<br/>先去创造<span>更多可能。</span></h3>
+   <p>{siteConfig.aboutMe}</p><a class="inline-link" href="/profile/">认识更多关于我 →</a>
+  </Card>
+  <Card class="now-card" eyebrow="NOW / 现在进行时"><div class="now-status"><i></i> 持续更新中</div><h3>给作品和想法，<br/>安一个家。</h3><p>正在整理个人展示空间，逐步补充真实作品与成长记录。</p><a class="inline-link" href="/notes/a-new-home/">这次建站的故事 →</a></Card>
+  <Card class="project-card" title="我的个人网站" eyebrow="02 / SELECTED PROJECT" href="/projects/personal-website/">
+   <div id="projects" class="section-anchor"></div><div class="project-visual" aria-hidden="true"><div class="mini-space-window"><div class="window-dots"><i></i><i></i><i></i><span>WHJ / PERSONAL SPACE</span></div><div class="mini-blackhole"></div><div class="mini-window-copy">IDEAS<br/><span>IN ORBIT.</span></div><div class="mini-window-orbit"><i></i><i></i><i></i></div></div></div>
+   <p>基于成熟开源项目定制的个人空间，让作品与探索都有自己的位置。</p><div class="project-card-tags"><span>Astro</span><span>开源定制</span><span>持续更新</span></div>
+  </Card>
+  <Card class="direction-card" title="好奇心，不止一个方向。" eyebrow="03 / WHAT LIVES HERE"><div class="direction-list"><div><span>01</span><h3>作品与项目</h3><p>从想法到可展示的成果</p></div><div><span>02</span><h3>创作与实验</h3><p>留下尝试、过程和新发现</p></div><div><span>03</span><h3>学习与成长</h3><p>把每一点进步记录下来</p></div></div><p class="direction-note">从真实的小成果开始，慢慢积累。</p></Card>
+  <Card class="notes-bento" title="过程，也值得被看见。" eyebrow="04 / FIELD NOTES"><div id="notes" class="section-anchor"></div><div class="bento-note-list">{notes.map(note=><a href={"/notes/"+note.id+"/"}><span>{note.data.category} · {note.data.date.toISOString().slice(0,10)}</span><h3>{note.data.title}<i aria-hidden="true">↗</i></h3><p>{note.data.description}</p></a>)}</div><a class="inline-link" href="/notes/">全部记录与搜索 →</a></Card>
+  <Card class="connect-card" eyebrow="LET'S CONNECT"><div class="connect-orb" aria-hidden="true"><span>✧</span></div><h3>下一次灵感，<br/>从连接开始。</h3><p>欢迎看看我的代码与作品。</p><a class="primary-button" href={siteConfig.social.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a></Card>
+ </div>
+</section>
