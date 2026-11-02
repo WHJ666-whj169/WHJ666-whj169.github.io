@@ -1,4 +1,4 @@
-# WHJ 的个人网站
+# 王赫骏 的个人网站
 
 线上地址：https://whj666-whj169.github.io/
 

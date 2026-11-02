@@ -1,7 +1,7 @@
 // 只填写愿意公开的资料，没有提供的经历和联系方式不会自动补写。
 export const siteConfig = {
- name: "WHJ", title: "保持好奇，把想法变成作品。",
- description: "WHJ 的个人网站。收集作品、创作过程与学习记录，记录持续探索的每一步。",
+ name: "王赫骏", title: "保持好奇，把想法变成作品。",
+ description: "王赫骏 的个人网站。收集作品、创作过程与学习记录，记录持续探索的每一步。",
  accentColor: "#1d4ed8",
  social: {github:"https://github.com/WHJ666-whj169", email:"", linkedin:"", twitter:""},
  aboutMe:"我想用这个空间，慢慢整理自己的作品、想法和成长。这里既放完成的成果，也记录尝试的过程：为什么开始、遇到了什么问题，以及最后学到了什么。不急着给自己贴上标签，先认真做好每一次尝试。",
